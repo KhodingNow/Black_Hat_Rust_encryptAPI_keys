@@ -1,17 +1,17 @@
-OverView
-With API keys, you need to generate a secrete that is only know by the clients and stor a hash of this secret in your database. Like with passwords, secrets are never stored in plainText in your dataBase - only store the hash.
+Over View
+With API keys, you need to generate a secrete that is only known by the clients and store a hash of this secret in your database. Like with passwords, secrets are never stored in plainText in your dataBase - only store the hash.
 On each request, client will send the secret in an HTTP header and your server will hash it and compare the hash to the one stored in your dataBase.
-The deveil is in the details, so, we need a few more things to make our API keys both agreeable to use and secure.
+The devil is in the details, so, we need a few more things to make our API keys both agreeable to use and secure.
 
 API Key format: we want API keys to be easily recognizable by both humans and automated security scanners to prevent leaks. Also, the API key must be easily selectable with a double-click, which excludes base64 encoding.
 APIKey = Prefix + Version + base32EncodeLowercase([ UUIDv7 (16 bytes) || secret (32 bytes) ])
 
-This is what is called the 'token' its the API key that the clients save to the server t authenticate API requests in the HTTP 'Authorization' header.
+This is what is called the 'token' its the API key that the clients save to the server to authenticate API requests in the HTTP 'Authorization' header.
 
 The there is the API key entity stored in the database:
 
-const API_KEY_SECRET_SIZE: uszie = 32; // 256 bits
-const API_KEY_HASH_SIZE: uszie = 64; // 512 bits
+const API_KEY_SECRET_SIZE: usize = 32; // 256 bits
+const API_KEY_HASH_SIZE: usize = 64; // 512 bits
 const API_KEY_PREFIX: &str = "MyService";
 
 
